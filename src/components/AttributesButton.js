@@ -38,10 +38,6 @@ class AttributesButton extends Component {
 
         return (
             <StyledButton 
-                style={{
-                    backgroundColor: `${attributeType === "swatch" && value}`,
-                    color:`${attributeType === "swatch" && value}` 
-                }}  
                 displayValue={displayValue}
                 attributeType={attributeType}
                 clicked={this.state.clicked}

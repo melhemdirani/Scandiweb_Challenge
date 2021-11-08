@@ -7,7 +7,6 @@ const cartSwatchStyle = css `
     background-color: ${props => props.displayValue};
     border: none;
     box-shadow: 1px 1px 2px  black;
-    filter: brightness(65%);
     font-size: 1px !important;
     width: 27px !important;
 
@@ -20,7 +19,6 @@ const cartSwatchFocusStyle = css `
     border: 2px solid red;
     font-size: 1px !important;
     width: 27px !important;
-
 `
 const cartTextStyle = css `
     color: black;
@@ -47,8 +45,6 @@ const swatchStyle = css `
     background-color: ${props => props.displayValue};
     border: none;
     box-shadow: 1px 1px 2px  black;
-    filter: brightness(65%);
-
 `
 const swatchFocusStyle = css `
     color: ${props => props.displayValue};
