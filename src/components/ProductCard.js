@@ -23,13 +23,15 @@ class ProductCard extends Component {
     handleClick = () => {
         this.props.setProduct(this.props.index)
     }
+   
 
     render() {
-        const {image, name, price, currency, currencies, category, product} = this.props
+        let category = this.props.categoryIndex === 0 ? 'clothes' : 'tech'
+        const {image, name, price, currency, currencies, index} = this.props
         const {isCardSelected} = this.state
         return (
             <Link
-                to = {`/${category}/${product}`}
+                to = {`/${category}/${index}`}
                 className={isCardSelected ? "cardContainer boxShadow" : "cardContainer" } 
                 onMouseEnter={this.mouseEnter} 
                 onMouseLeave={this.mouseLeave}

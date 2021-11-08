@@ -21,6 +21,7 @@ class ProductListing extends Component {
     let products =  data.categories[i].products
     let name = data.categories[i].name
     const { closeCart, showCart } = this.props
+    
     return  (
       <StyledComponentBrightness dark={showCart} className="productListing_container" onClick={closeCart} >
         <h1> {name.charAt(0).toUpperCase() + name.slice(1)}</h1>
@@ -32,7 +33,6 @@ class ProductListing extends Component {
               key={index} 
               image={product.gallery[0]} 
               name={product.name} 
-              brand={product.brand}
               price={product.prices} 
               currency={product.prices[0].currency}
             />
