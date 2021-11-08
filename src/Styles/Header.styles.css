@@ -1,0 +1,52 @@
+.Header_Container{
+    display: flex;
+    justify-content: space-between;
+    background-color: white !important;
+    width: calc(100vw - 200px);
+    position: absolute;
+    left: 0;
+    padding: 28px 100px 0 100px;
+    margin-top: -80px;
+    align-items: flex-start;
+    height: 64px;
+}
+.currency_vector{
+    margin: 0 22px 0 10px;
+    cursor: pointer;
+    }
+.currency_options{
+    position: absolute;
+    width: 94px;
+    padding-left: 20px;
+    padding-top: 10px;
+    margin-left: -20px;
+    height: 149px;
+    overflow: scroll;
+}
+
+.header_currency{
+    cursor: pointer;
+}
+.header_currency_options{
+    cursor: pointer;
+
+}
+.header_quantity{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    position: absolute;
+    background-color: black;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin-right: -10px;
+    margin-top: 4px;
+}
+.header_cartIcon_container{
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+}

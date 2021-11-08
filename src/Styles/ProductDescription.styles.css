@@ -1,0 +1,33 @@
+.PDP_Container{
+    display: flex;
+    align-items: flex-start;
+    padding-top: 80px;
+}
+.PDP_Img_Container{
+    display: flex;
+    flex-direction: column;
+    height: 511px;
+    justify-content: space-between;
+    margin-right: 40px;
+}
+.PDP_RenderedImages{
+    height: 80px;
+    width: 79px;
+    cursor: pointer;
+}
+.PDP_Image{
+    margin-right: 100px;
+    height: 511px;
+}
+.PDP_BUTTON{
+    width: 292px;
+    height: 52px;
+    background: #5ECE7B;
+    border: none;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 40px;
+}

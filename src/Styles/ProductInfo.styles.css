@@ -1,0 +1,5 @@
+.ProductInfo_Container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}

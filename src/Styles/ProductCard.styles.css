@@ -1,0 +1,25 @@
+
+.productImage{
+    width: 354px;
+    height: 330px;
+}
+.itemInfo{
+  width: 356px;
+}
+
+.cardContainer{
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  width: 386px;
+  height: 444px;
+  padding: 16px 0;
+  cursor: pointer;
+}
+.shopCartIcon{
+  position: absolute;
+  align-self: flex-end;
+  margin-top: 300px;
+  margin-left: -31px;
+}

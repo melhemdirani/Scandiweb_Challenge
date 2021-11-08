@@ -1,0 +1,12 @@
+
+.productlisting{
+    display: grid;
+    grid-template-columns: 356px 356px 356px;
+    grid-column-gap: 40px;
+    grid-row-gap: 53px;
+}
+.productListing_container{
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
+}
