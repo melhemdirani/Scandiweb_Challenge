@@ -27,11 +27,6 @@ const LargeButton = css `
     height: 45px;
 `
 
-const getButtonDimensions = props => {
-    if (props.location === "header") {
-        return smallButton
-    } else return LargeButton
-}
 
 
 export const StyledCartButton =  styled.button`
@@ -42,9 +37,3 @@ export const StyledCartButton =  styled.button`
     font-size: 14px;
     cursor: pointer;
 `
-export const StyledAddRemoveButton = styled.button`
-    background-color: white;
-    cursor: pointer;
-    border: 1px solid #1D1F22;
-    ${getButtonDimensions};
-`   

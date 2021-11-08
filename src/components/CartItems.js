@@ -5,7 +5,10 @@ import '../Styles/CartItems.styles.css';
 import { removeItem } from '../redux/cart/cart.action';
 import { addItem } from '../redux/cart/cart.action';
 import ProductInfo from './ProductInfo';
-import { StyledAddRemoveButton } from './StyledComponents/StyledCartButton.styles.jsx';
+import plus from '../images/plus-square.svg';
+import plusMini from '../images/plus-squaremini.svg';
+import minus from '../images/minus-square.svg';
+import minusMini from '../images/minus-squaremini.svg';
 
 class CartItems extends Component {
     constructor(props){
@@ -25,7 +28,6 @@ class CartItems extends Component {
         let i = item.array[0]
         let j = item.array[1]
         let data = this.props.storeItems.data.categories[i].products[item.array[j]] 
-
         if(this.state.imageIndex === data.gallery.length - 1){
             return 
         }
@@ -66,12 +68,12 @@ class CartItems extends Component {
                 />
                 <div className="CartItems_Image_Container">
                     <div className="CartItems_Buttons_Container">
-                        <StyledAddRemoveButton onClick={this.addItemsToCart} location={location}> + </StyledAddRemoveButton>
-                        <p className="CartItems_Amount">{item.quantity}</p>
-                        <StyledAddRemoveButton onClick={this.removeItemsFromCart} location={location}> - </StyledAddRemoveButton>
+                        <img alt="plus" src={location === 'header' ? plusMini : plus} onClick={this.addItemsToCart}/>
+                        <p className={location === "header" ? "CartItems_Amount_Small" : "CartItems_Amount_Large"}>{item.quantity}</p>
+                        <img alt="plus" src={location === 'header' ? minusMini : minus} onClick={this.removeItemsFromCart}/>
                     </div>
                     {
-                        location === 'cartPage'  
+                        location === 'cartPage' &&  data.gallery.length > 1
                         ?   <div style={{backgroundImage: `url(${data.gallery[this.state.imageIndex]})`, backgroundSize: "100% 100%"}} className="CartItems_CartPage_Images">
                                 <p onClick={this.handlePreviousImage} className="CartItems_ImageToggler">{"<"}</p>
                                 <p onClick={this.handleNextImage} className="CartItems_ImageToggler">{">"}</p>
