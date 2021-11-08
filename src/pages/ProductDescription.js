@@ -68,11 +68,13 @@ class ProductDescription extends Component {
 
         return (
             <StyledComponentBrightness  dark={showCart} onClick={closeCart} className="PDP_Container">
-                <div className="PDP_Img_Container" >
-                    {gallery.length > 1 && gallery.map((image, i) => 
-                    <img src={image} key={i} alt=""  className="PDP_RenderedImages" onClick={() => this.handleImageClick(i)}/>)} 
+                <div className="PDP_SubContainer" >
+                    <div className="PDP_Img_Container">
+                        {gallery.length > 1 && gallery.map((image, i) => 
+                        <img src={image} key={i} alt=""  className="PDP_RenderedImages" onClick={() => this.handleImageClick(i)}/>)} 
+                    </div>
+                    <img src={gallery[this.state.shownImageIndex]} alt="" className="PDP_Image"/>
                 </div>
-                <img src={gallery[this.state.shownImageIndex]} alt="" className="PDP_Image"/>
                 <div>
                     <ProductInfo 
                         brand={brand} 

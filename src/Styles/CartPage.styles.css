@@ -2,3 +2,8 @@
     width: 1097px;
     padding-top: 80px;
 }
+@media only screen and (max-width: 600px) {
+    .CartPage_Container{
+        width: 100%;
+    }
+ }

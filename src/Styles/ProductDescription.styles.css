@@ -1,7 +1,9 @@
 .PDP_Container{
     display: flex;
-    align-items: flex-start;
     padding-top: 80px;
+}
+.PDP_SubContainer{
+    display: flex;
 }
 .PDP_Img_Container{
     display: flex;
@@ -30,4 +32,24 @@
     font-weight: 600;
     cursor: pointer;
     margin-bottom: 40px;
+}
+@media only screen and (max-width: 600px) {
+    .PDP_Container{
+        display: flex;
+        flex-direction: column;
+    }
+    .PDP_Img_Container{
+        height: 150px;
+    }
+    .PDP_SubContainer{
+        margin-bottom: 50px;
+    }
+    .PDP_Image{
+        margin-right: 100px;
+        height: 200px;
+        width: auto;
+    }
+    .PDP_RenderedImages{
+        width: 50px;
+    }
 }

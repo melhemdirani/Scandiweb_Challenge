@@ -68,8 +68,8 @@ class CartItems extends Component {
                 />
                 <div className="CartItems_Image_Container">
                     <div className="CartItems_Buttons_Container">
-                        <img alt="plus" src={location === 'header' ? plusMini : plus} onClick={this.addItemsToCart}/>
-                        <p className={location === "header" ? "CartItems_Amount_Small" : "CartItems_Amount_Large"}>{item.quantity}</p>
+                        <img alt="plus" src={location === 'header' ? plusMini : plus} onClick={this.addItemsToCart} style={{cursor :"pointer"}}/>
+                        <p className={location === "header" ? "CartItems_Amount_Small" : "CartItems_Amount_Large"} style={{cursor: "pointer"}}>{item.quantity}</p>
                         <img alt="plus" src={location === 'header' ? minusMini : minus} onClick={this.removeItemsFromCart}/>
                     </div>
                     {

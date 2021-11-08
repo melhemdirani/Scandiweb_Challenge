@@ -48,3 +48,8 @@
     font-weight: 700;
     font-size: 16px;
 }
+@media only screen and (max-width: 600px) {
+    .CartOverLay_Container{
+        right: 0px;
+    }
+}
