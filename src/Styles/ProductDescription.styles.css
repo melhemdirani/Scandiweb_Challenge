@@ -14,7 +14,7 @@
 }
 .PDP_RenderedImages{
     height: 80px;
-    width: 79px;
+    width: auto;
     cursor: pointer;
 }
 .PDP_Image{
@@ -45,5 +45,6 @@
     }
     .PDP_RenderedImages{
         width: 50px;
+        
     }
 }

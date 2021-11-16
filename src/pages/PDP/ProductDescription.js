@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import Parser from 'html-react-parser';
 
 import ProductInfo from '../../components/ProductInfo';
@@ -53,7 +52,6 @@ class ProductDescription extends Component {
                 attributesTypes:attributesTypes, 
                 data: this.props.product
             })
-            alert(`${brand} ${name} was added to cart`)
         } else {
             alert ("Please enter all product properties ")
         }
@@ -100,17 +98,17 @@ class ProductDescription extends Component {
                         setAttribute={this.setAttribute}  
                         location="productDescription"
                     />
-                    <div className="PDP_Description">
-                        {Parser(
-                            `${description}`
-                        )}
-                    </div>
                     <button 
                         onClick={this.addToCart} 
                         className="addToCart_Button"
                     >
                         ADD TO CART
                     </button>
+                    <div className="PDP_Description">
+                        {Parser(
+                            `${description}`
+                        )}
+                    </div>
                 </div>
             </StyledComponentBrightness> 
         )
@@ -134,4 +132,4 @@ const mapStateToProps =  ({
     showCurrencies
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProductDescription))
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDescription)

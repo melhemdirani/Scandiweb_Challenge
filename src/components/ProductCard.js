@@ -62,7 +62,6 @@ class ProductCard extends Component {
         }))
     }
     addToCart = () => {
-        this.props.showAttribute("")    
         let attributesTypes= this.state.attributesTypes
         let {brand, name, inStock} = this.props
         if(!inStock){ 
@@ -76,8 +75,6 @@ class ProductCard extends Component {
                 attributesTypes:attributesTypes, 
                 data: this.props.product
             })
-            alert(`${brand} ${name} was added to cart`)
-            this.props.showAttribute("") 
         } else {
             alert ("Please enter all product properties")
             this.props.disallowHideAttributes()
