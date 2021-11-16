@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   showCart: false,
   items: [],
   total: 0,
+  totalQuantity: 0,
   attributesCount: 0
 };
 
@@ -33,6 +34,11 @@ const categoryReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         total: action.payload
+      };
+    case 'SET_TOTAL_QUANTITY':
+      return {
+        ...state,
+        totalQuantity: action.payload
       };
     case 'SET_ATTRIBUTES_COUNT':
       return {

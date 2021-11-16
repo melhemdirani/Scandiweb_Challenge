@@ -5,33 +5,34 @@ import storage from "redux-persist/lib/storage";
 import currencyReducer from "./currency/currency.reducer";
 import categoryReducer from "./category/category.reducer";
 import cartReducer from "./cart/cart.reducer";
-import storeItemsReducer from "./storeItems/storeItems.reducer";
-
+import attributeReducer from "./attributes/attributes.reducer"
 
 const persistConfig = {
   key: "root",
   storage,
   whitelist: [
-    "category",
     "currency",
     "currencies",
     "product",
     "items", 
-    "total"
+    "total",
+    "totalQuantity"
   ],
 };
 
 const rootReducer = combineReducers({
-  category: categoryReducer,
   categoryIndex: categoryReducer,
   product: categoryReducer,
   currency: currencyReducer,
   currencies: currencyReducer,
+  showCurrencies: currencyReducer,
   showCart: cartReducer,
   items: cartReducer,
   total: cartReducer,
+  totalQuantity: cartReducer,
   attributesCount: cartReducer,
-  storeItems: storeItemsReducer
+  attributeShown: attributeReducer,
+  allowHideAttribute: attributeReducer
 
 });
 

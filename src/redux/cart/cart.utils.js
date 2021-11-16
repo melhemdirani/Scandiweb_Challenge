@@ -1,10 +1,3 @@
-function arrayEquals(a, b) {
-    return Array.isArray(a) &&
-      Array.isArray(b) &&
-      a.length === b.length &&
-      a.every((val, index) => val === b[index]);
-}
-
 function attributesEqual(a,b) {
     let types = a.attributesTypes
     return(
@@ -14,15 +7,15 @@ function attributesEqual(a,b) {
 
 export const addItemToCart = (items, itemsToAdd) => {
 
-    const existingItemsArray = items.find(
-        item => arrayEquals(item.array, itemsToAdd.array)
+    const existingItem = items.find(
+        item => item.id === itemsToAdd.id
     );
     const existingItemsAttributes = items.find(
         item => attributesEqual(item, itemsToAdd)
     );
-    if(existingItemsArray && existingItemsAttributes) {
+    if(existingItem && existingItemsAttributes) {
         return items.map(item => 
-            arrayEquals(item.array, itemsToAdd.array) && attributesEqual(item, itemsToAdd)
+            item.id === itemsToAdd.id && attributesEqual(item, itemsToAdd)
             ? {...item, quantity: item.quantity + 1}
             : item
         )
@@ -31,12 +24,15 @@ export const addItemToCart = (items, itemsToAdd) => {
 }
 
 export const removeItemFromCart = (items, itemsToRemove) => {
-
+    
     if(itemsToRemove.quantity === 1) {
-        return items.filter(item => !attributesEqual(item, itemsToRemove) && !arrayEquals(items.array, itemsToRemove.array))
+        return items.filter(item => 
+            ((!attributesEqual(item, itemsToRemove) && item.id !== itemsToRemove.id) 
+            || (!attributesEqual(item, itemsToRemove) && item.id === itemsToRemove.id)
+        ))
     }
     return items.map(item => 
-        arrayEquals(item.array, itemsToRemove.array) && attributesEqual(item, itemsToRemove)
+        item.id === itemsToRemove.id && attributesEqual(item, itemsToRemove)
         ? {...item, quantity: item.quantity - 1} 
         : item
     )

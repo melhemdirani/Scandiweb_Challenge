@@ -5,9 +5,11 @@ import styled, { css } from 'styled-components';
 const smallFont = css `
     font-size: 16px;
     font-weight: 300;
+    margin: 10px 0;
 `
 const largeFont = css `
     font-size: 30px;
+    margin: 20px 0;
 `
 const lightFont = css `
     font-weight: 300;

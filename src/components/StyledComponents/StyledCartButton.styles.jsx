@@ -18,14 +18,7 @@ const getButtonStyle = props => {
         return viewBagStyle
     } else return checkoutStyle
 }
-const smallButton = css `
-    width: 24px;
-    height: 24px;
-`
-const LargeButton = css `
-    width: 45px;
-    height: 45px;
-`
+
 
 
 

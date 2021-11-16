@@ -5,16 +5,25 @@ import '../Styles/CartPage.styles.css';
 import CartItems from '../components/CartItems';
 import { StyledComponentBrightness } from '../components/StyledComponents/StyledContainer.styles.jsx';
 import { setCategoryIndex } from '../redux/category/category.action';
+import { closeCart } from '../redux/cart/cart.action';
+import { hideCurrencies } from '../redux/currency/currency.action';
 
 class CartPage extends Component {
-
+    handleContainerClick = () => {
+        this.props.showCart && this.props.closeCart()
+        this.props.showCurrencies && this.props.hideCurrencies()
+      }
     componentDidMount(){
         this.props.setCategoryIndex("")
     }
     render() {
         const { items, showCart} = this.props
         return (
-            <StyledComponentBrightness  className="CartPage_Container" dark={showCart}>
+            <StyledComponentBrightness  
+                className="CartPage_Container" 
+                dark={showCart} 
+                onClick={this.handleContainerClick}
+            >
                 <h1>Cart</h1>
                 {items && items.map((item, i) => 
                     <CartItems 
@@ -31,11 +40,15 @@ class CartPage extends Component {
 
 
 const mapDispatchToProps = (dispatch) => ({
-    setCategoryIndex: (index) => dispatch(setCategoryIndex(index))
+    setCategoryIndex: (index) => dispatch(setCategoryIndex(index)),
+    closeCart: () => dispatch(closeCart()),
+    hideCurrencies: () => dispatch(hideCurrencies())
 });
-const mapStateToProps = ({items: {items},  showCart:{showCart}})  => ({
+
+const mapStateToProps = ({items: {items},  showCart:{showCart}, showCurrencies:{showCurrencies}})  => ({
     items,
-    showCart
+    showCart,
+    showCurrencies
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartPage)

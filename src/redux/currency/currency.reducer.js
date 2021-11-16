@@ -2,7 +2,8 @@
 
 const INITIAL_STATE = {
   currency: "0",
-  currencies : ["$", "£", "A$", "¥", "₽"]
+  currencies : ["$", "£", "A$", "¥", "₽"],
+  showCurrencies: false
 };
 
 const currencyReducer = (state = INITIAL_STATE, action) => {
@@ -11,6 +12,16 @@ const currencyReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currency: action.payload
+      };
+    case 'TOGGLE_CURRENCIES':
+      return {
+        ...state,
+        showCurrencies: !state.showCurrencies
+      };
+    case 'HIDE_CURRENCIES':
+      return {
+        ...state,
+        showCurrencies: false
       };
     default:
       return state;

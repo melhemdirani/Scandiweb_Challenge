@@ -5,3 +5,11 @@ export const setCurrency = currency => ({
   payload: currency
 });
 
+export const toggleCurrencies = () => ({
+  type: 'TOGGLE_CURRENCIES'
+});
+
+export const hideCurrencies = () => ({
+  type: 'HIDE_CURRENCIES'
+});
+

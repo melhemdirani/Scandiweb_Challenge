@@ -35,7 +35,7 @@ const cartButtonDimensions = css `
     height: 27px;
     font-size: 14px;
     margin-right: 8px;
-    margin-top: 20px;
+    margin-top: 5px
 `
 
 // product description buttons
@@ -74,12 +74,12 @@ const pointerCursor = css `
 `
 
 const getButtonDimensions = props => {
-    if (props.location === "header") {
+    if (props.location === "header" || props.location === "Product_Listing" ) {
         return cartButtonDimensions
     } else return largeButtonDimensions
 }
 const getCursor = props => {
-    if (props.location === "productDescription") {
+    if (props.location === "productDescription" || props.location === "Product_Listing") {
         return pointerCursor
     } else return ""
 }
@@ -117,6 +117,7 @@ export const StyledButton =  styled.button`
     ${getButtonStyle};
     ${getButtonDimensions};
     ${getCursor};
+    
 `
 
   

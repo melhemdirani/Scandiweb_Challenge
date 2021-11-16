@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { gql }  from 'apollo-boost';
 
 import '../Styles/Header.styles.css'
 import brandIcon from '../images/brandIcon.svg';
 import cart from '../images/emptyCart.svg';
 import vector from '../images/vector.svg';
 import Categories from './Categories';
-import { setCurrency } from '../redux/currency/currency.action';
-import { toggleCart, closeCart } from '../redux/cart/cart.action';
+import { hideCurrencies, setCurrency, toggleCurrencies } from '../redux/currency/currency.action';
+import { toggleCart, closeCart, setTotalQuantity } from '../redux/cart/cart.action';
 import CartOverLay from './CartOverLay';
+import { showAttribute } from '../redux/attributes/attributes.action';
 
 
 
@@ -16,49 +18,94 @@ class Header extends Component {
     constructor({props}){
         super(props);
         this.state={
-            currencyShown: false
+            data: {},
         };
     }
     toggleCurrencies = () => {
-        this.setState({currencyShown: !this.state.currencyShown});
         this.props.closeCart()
+        this.props.toggleCurrencies()
     }
 
     handleCurrencyClick = (c) => {
         this.props.setCurrency(c);
-        this.setState({currencyShown: false})
     }
 
     openCloseCart = () => {
-        this.setState({currencyShown: false})
         this.props.toggleCart()
-    }   
+    } 
+    handleContainerClick= () => {
+        this.props.attributeShown && this.props.showAttribute("")
+        this.props.showCurrencies && this.props.hideCurrencies()
+    }
+    componentDidMount(){
+        this.calculateQuantity();
+        this.props.client.query({
+            query:  gql `
+              {
+                categories{
+                    name
+                    products{
+                        prices{
+                        currency
+                        } 
+                    }   
+                }
+              }
+            `
+        }).then(res => { this.setState({data: res.data}) });   
+    } 
     
+    calculateQuantity = () => {
+        let newQuantity = this.props.items.reduce(
+            (accumalatedQuantity, item) =>accumalatedQuantity + item.quantity, 0
+        )
+        if(this.props.totalQuantity !== newQuantity )  {
+            this.props.setTotalQuantity(newQuantity)
+        }
+    }
+
+    componentDidUpdate() {
+        this.calculateQuantity();
+    }
+
     render() {
         
-        const { currency, currencies, showCart, items, storeItems} = this.props
-        const { currencyShown } = this.state
-        const { data } = storeItems
-
+        const { currency, currencies, showCart, totalQuantity, showCurrencies, toggleCart} = this.props
+        const data = this.state.data
+        
         return  (
-            <div className="Header_Container" >
+            <div className="Header_Container" onClick={this.handleContainerClick}>
                 <div className="flex">
-                    {data.categories.map((category, index) => <Categories key={index} name={category.name} index={index}/>)}
+                    {data.categories && data.categories.map((category, index) =>
+                        <Categories key={index} name={category.name} index={index}/>
+                     )}
                 </div>
                 <img alt="brand icon" src={brandIcon} />
                 <div>
                     <div className="flex">
                         <p className="header_currency" onClick={this.toggleCurrencies}>{currencies[currency]}</p>
-                        <img alt="" src={vector} className="currency_vector" onClick={this.toggleCurrencies}/>
-                        <div className="header_cartIcon_container" onClick={this.openCloseCart}>
+                        <img 
+                            alt="" 
+                            src={vector} 
+                            className={showCurrencies ? "currency_vector" : "currency_vector  currency_vector_rotate"} 
+                            onClick={this.toggleCurrencies}
+                        />
+                        <div className="header_cartIcon_container" onClick={toggleCart}>
                             <img alt="" src={cart} />
-                            <p className="header_quantity">{items.length}</p>
+                            <p className="header_quantity">{totalQuantity}</p>
                         </div>
                     </div>
-                    { currencyShown && 
+                    { showCurrencies && 
                         <div className="currency_options boxShadow">
-                            {data.categories[0].products[0].prices.map((d,i) =>
-                            <p key={i} onClick={() => this.handleCurrencyClick(i)} className="header_currency_options">{currencies[i]} {d.currency}</p>)}
+                            {data.categories  && data.categories[0].products[0].prices.map((d,i) =>
+                                <p 
+                                    key={i} 
+                                    onClick={() => this.handleCurrencyClick(i)} 
+                                    className="header_currency_options"
+                                >
+                                    {currencies[i]} {d.currency}
+                                </p>
+                            )}
                         </div>
                     }
                 </div> 
@@ -71,7 +118,11 @@ class Header extends Component {
 const mapDispatchToProps = (dispatch) => ({
     setCurrency: (currency) => dispatch(setCurrency(currency)),
     toggleCart: () => dispatch(toggleCart()),
-    closeCart: () => dispatch(closeCart())
+    toggleCurrencies: () => dispatch(toggleCurrencies()),
+    hideCurrencies: () => dispatch(hideCurrencies()),
+    closeCart: () => dispatch(closeCart()),
+    showAttribute: (id) => dispatch(showAttribute(id)),
+    setTotalQuantity: (total) => dispatch(setTotalQuantity(total)),
 });
 
   
@@ -79,15 +130,20 @@ const mapStateToProps = ({
     currency:{currency}, 
     currencies:{currencies}, 
     showCart:{showCart},
-    storeItems:{storeItems},
-    items:{items},
+    showCurrencies:{showCurrencies},
+    totalQuantity:{totalQuantity},
+    attributeShown:{attributeShown},
+    items: {items}
 
     })  => ({
     currency,
     currencies,
     showCart,
-    storeItems,
+    showCurrencies,
+    totalQuantity,
+    attributeShown,
     items
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

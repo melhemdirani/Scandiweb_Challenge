@@ -1,7 +1,7 @@
 
 .productlisting{
     display: grid;
-    grid-template-columns: repeat(auto-fill, 356px);
+    grid-template-columns: 386px 386px 386px;
     grid-column-gap: 40px;
     grid-row-gap: 53px;
 }

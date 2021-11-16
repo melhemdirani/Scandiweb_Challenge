@@ -17,7 +17,7 @@ class AttributesButton extends Component {
         let attributeName = this.props.attributeName
 
         
-        if( stateAttributes &&  stateAttributes.[attributeName] === displayValue && !this.state.clicked ){ //here
+        if( stateAttributes &&  stateAttributes.[attributeName] === displayValue && !this.state.clicked ){ 
             this.setState({clicked: true})
         } 
         if(stateAttributes && stateAttributes.[attributeName] !== displayValue && this.state.clicked ){
@@ -33,7 +33,7 @@ class AttributesButton extends Component {
     }
    
     render() {
-        const { attributeType, attributeName, handleClick, displayValue, value, location } = this.props
+        const { attributeType, attributeName, handleClick, displayValue, location } = this.props
    
 
         return (

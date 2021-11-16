@@ -1,98 +1,43 @@
 import React, { Component } from 'react'
 import { Route, Switch , Redirect} from "react-router-dom";
-import { gql }  from 'apollo-boost';
 import { connect } from 'react-redux';
 
 import './App.css';
-import ProductDescription from './pages/ProductDescription';
-import ProductListing from './pages/ProductListing';
 import Header from './components/Header';
 import CartPage from './pages/CartPage';
-import { setStoreItems } from './redux/storeItems/storeItems.action';
-import { StyledContainer } from './components/StyledComponents/StyledContainer.styles.jsx';
+import PLP_CONTAINER from './pages/PLP/PLP_CONTAINER';
+import PDP_CONTAINER from './pages/PDP/PDP_CONTAINER';
 
 class App extends Component {
-  constructor(){
-    super();
-    this.state={
-      category: "",
-      currency: "",
-      cartOverlay: false,
-      loading: true,
-      dark: false
-    };
-  }
-  componentDidMount(){
-    if(this.state.loading){
-      this.props.client.query({
-        query:  gql `
-          {
-            categories{
-              name
-              products{
-                category
-                name
-                description
-                gallery
-                prices{
-                  currency
-                  amount
-                } 
-                brand
-                attributes{
-                  name
-                  type
-                  items{
-                    displayValue
-                    value
-                  }
-                }
-              }
-            }
-          }
-        `
-      }).then(res => this.props.setStoreItems(res));   // add Store Items to redux
-    } 
-  }
-  componentDidUpdate(){
-    if(!this.props.storeItems.loading && this.state.loading){
-      this.setState({loading: false})
-    }
-  }
+ 
+ 
   render() {
-    return this.state.loading ? "loading" : (
-      <StyledContainer dark={this.props.showCart} >
-        <Header />
+    return(
+      <div className={this.props.showCart ? "DarkApp" : "App"} >
+        <Header client={this.props.client}/>
         <Switch>
-          <Route exact path='/tech'>
-            <ProductListing productCategory={1}/>
+          <Route exact path='/products/:category'>
+            <PLP_CONTAINER />
           </Route>
           <Route exact path='/'>
-            <Redirect to="/clothes" />
+            <Redirect to="/products/clothes" />
           </Route>
-          <Route exact path='/clothes'>
-            <ProductListing productCategory={0} />
-          </Route>
-          <Route  exact path='/:category/:product'>
-            <ProductDescription />
+          <Route  exact path='/products/:category/:product'>
+            <PDP_CONTAINER />
           </Route>
           <Route  exact path='/bag'>
             <CartPage />
           </Route>
           <p>not found</p>
         </Switch>
-      </StyledContainer>
+      </div>
     )
   }
 }
 
-const mapStateToProps = ({storeItems:{storeItems}, showCart:{showCart}})  => ({
-  storeItems,
+const mapStateToProps = ({showCart:{showCart}})  => ({
   showCart
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  setStoreItems: (items) => dispatch(setStoreItems(items)),
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

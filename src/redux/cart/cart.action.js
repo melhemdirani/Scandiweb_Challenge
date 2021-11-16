@@ -22,6 +22,10 @@ export const setTotal = total => ({
   type: 'SET_TOTAL',
   payload: total
 });
+export const setTotalQuantity = totalQuantity => ({
+  type: 'SET_TOTAL_QUANTITY',
+  payload: totalQuantity
+});
 
 export const setAttributesCount = count => ({
   type: 'SET_ATTRIBUTES_COUNT',

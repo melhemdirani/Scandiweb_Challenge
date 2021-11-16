@@ -25,34 +25,25 @@ class CartItems extends Component {
     }
     handleNextImage= () => {
         let item = this.props.item
-        let i = item.array[0]
-        let j = item.array[1]
-        let data = this.props.storeItems.data.categories[i].products[item.array[j]] 
-        if(this.state.imageIndex === data.gallery.length - 1){
+
+        if(this.state.imageIndex === item.data.gallery.length - 1){
             return 
         }
         this.setState({imageIndex: this.state.imageIndex + 1})
     }
     removeItemsFromCart = () => {
         let item = this.props.item
-        let i = item.array[0]
-        let j = item.array[1]
-        this.props.removeItem({array: [i,j], quantity: item.quantity, attributes: item.attributes, attributesTypes: item.attributesTypes })
+        this.props.removeItem({id: item.id,  quantity: item.quantity, attributes: item.attributes})
     }
     addItemsToCart = () => {
         let item = this.props.item
-        let i = item.array[0]
-        let j = item.array[1]
-        let price = this.props.storeItems.data.categories[i].products[j].prices
-        this.props.addItem({array: [i,j], price: price, attributes: item.attributes, attributesTypes: item.attributesTypes })
+        this.props.addItem({id: item.id, attributes: item.attributes, attributesTypes: item.attributesTypes })
     }
     
     render() {
 
         const {currency, location, item, stateAttributes} = this.props
-        let i = item.array[0]
-        let j = item.array[1]
-        let data = this.props.storeItems.data.categories[i].products[j] 
+        let data = this.props.item.data
         let attributes = data.attributes
 
         return (
@@ -68,17 +59,46 @@ class CartItems extends Component {
                 />
                 <div className="CartItems_Image_Container">
                     <div className="CartItems_Buttons_Container">
-                        <img alt="plus" src={location === 'header' ? plusMini : plus} onClick={this.addItemsToCart} style={{cursor :"pointer"}}/>
-                        <p className={location === "header" ? "CartItems_Amount_Small" : "CartItems_Amount_Large"} style={{cursor: "pointer"}}>{item.quantity}</p>
-                        <img alt="plus" src={location === 'header' ? minusMini : minus} onClick={this.removeItemsFromCart}/>
+                        <img 
+                            alt="plus" 
+                            src={location === 'header' ? plusMini : plus} 
+                            onClick={this.addItemsToCart} 
+                            className="CartItems_Image"
+                        />
+                        <p className={location === "header" ? "CartItems_Amount_Small" : "CartItems_Amount_Large"}>
+                            {item.quantity}
+                        </p>
+                        <img 
+                            alt="minus" 
+                            src={location === 'header' ? minusMini : minus} 
+                            onClick={this.removeItemsFromCart}
+                            className="CartItems_Image"
+                        />
                     </div>
                     {
                         location === 'cartPage' &&  data.gallery.length > 1
-                        ?   <div style={{backgroundImage: `url(${data.gallery[this.state.imageIndex]})`, backgroundSize: "100% 100%"}} className="CartItems_CartPage_Images">
-                                <p onClick={this.handlePreviousImage} className="CartItems_ImageToggler">{"<"}</p>
-                                <p onClick={this.handleNextImage} className="CartItems_ImageToggler">{">"}</p>
+                        ?   <div 
+                                style={{backgroundImage: `url(${data.gallery[this.state.imageIndex]})`}} 
+                                className="CartItems_CartPage_Images"
+                            >
+                                <p 
+                                    onClick={this.handlePreviousImage} 
+                                    className="CartItems_ImageToggler"
+                                >
+                                    {"<"}
+                                </p>
+                                <p 
+                                    onClick={this.handleNextImage} 
+                                    className="CartItems_ImageToggler"
+                                >
+                                    {">"}
+                                </p>
                             </div>
-                        :   <img src={data.gallery[0]} alt="" className={location === "header" ? "CartItems_Image_Header" : "CartItems_Image_Page"}/>
+                        :   <img 
+                                src={data.gallery[0]} 
+                                alt="" 
+                                className={location === "header" ? "CartItems_Image_Header" : "CartItems_Image_Page"}
+                            />
                     }
                 </div>
             </div>
@@ -91,10 +111,9 @@ const mapDispatchToProps = (dispatch) => ({
     addItem: (item) => dispatch(addItem(item))
 });
 
-const mapStateToProps = ({currency: {currency}, currencies:{currencies}, storeItems:{storeItems}})  => ({
+const mapStateToProps = ({currency: {currency}, currencies:{currencies}})  => ({
     currency,
-    currencies,
-    storeItems
+    currencies
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItems)

@@ -3,3 +3,15 @@
     flex-direction: column;
     justify-content: flex-end;
 }
+
+.ProductInfo_MarginTop{
+    margin-top: 0;
+}
+.ProductInfo_MarginTop{
+    display: flex;
+    flex-wrap: wrap;
+}
+.ProductInfo_AttributesButtons{
+    display: flex;
+    flex-wrap: wrap;
+}

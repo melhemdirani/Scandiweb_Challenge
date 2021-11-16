@@ -13,15 +13,17 @@
 .currency_vector{
     margin: 0 22px 0 10px;
     cursor: pointer;
-    }
+}
+.currency_vector_rotate{
+    transform: rotate(180deg);
+}
 .currency_options{
     position: absolute;
     width: 94px;
     padding-left: 20px;
     padding-top: 10px;
     margin-left: -20px;
-    height: 149px;
-    overflow: scroll;
+    height: auto;
 }
 
 .header_currency{
@@ -29,7 +31,9 @@
 }
 .header_currency_options{
     cursor: pointer;
-
+}
+.header_currency_options:hover{
+    font-weight: 900;
 }
 .header_quantity{
     display: flex;
