@@ -25,6 +25,7 @@ class ProductDescription extends Component {
     }
 
     setAttribute = (type, att) => {
+        if(this.props.showCart) return null
         if(!this.state.attribute.[type]){                               // To Check if the array already includes this type
             this.setState(prevState => ({
                 attributesTypes: [...prevState.attributesTypes, type]
@@ -62,7 +63,7 @@ class ProductDescription extends Component {
     }
     render() {
         const { currency, showCart} = this.props
-        const { gallery, name, brand, prices, attributes, description } = this.props.product 
+        const { gallery, name, brand, prices, attributes, description, inStock } = this.props.product 
 
         return (
             <StyledComponentBrightness  
@@ -78,15 +79,19 @@ class ProductDescription extends Component {
                                 key={i} 
                                 alt=""  
                                 className="PDP_RenderedImages" 
-                                onClick={() => this.handleImageClick(i)}
+                                style={{cursor: !showCart ? "pointer" : "default" }}
+                                onClick={!showCart ? (() => this.handleImageClick(i)) : null}
                             />
                         )} 
                     </div>
-                    <img 
-                        src={gallery[this.state.shownImageIndex]} 
-                        alt="" 
-                        className="PDP_Image"
-                    />
+                    <div>
+                        { !inStock && <p className="PDP_OutofStock"> OUT OF STOCK </p>}
+                        <img 
+                            src={gallery[this.state.shownImageIndex]} 
+                            alt="" 
+                            className="PDP_Image"
+                        />
+                    </div>
                 </div>
                 <div>
                     <ProductInfo 
@@ -99,8 +104,9 @@ class ProductDescription extends Component {
                         location="productDescription"
                     />
                     <button 
-                        onClick={this.addToCart} 
+                        onClick={!showCart ? this.addToCart : null} 
                         className="addToCart_Button"
+                        style={{cursor: !showCart ? "pointer" : "" }}
                     >
                         ADD TO CART
                     </button>

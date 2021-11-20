@@ -19,6 +19,7 @@ class Header extends Component {
         super(props);
         this.state={
             data: {},
+            fetchedCurrencies: {}
         };
     }
     toggleCurrencies = () => {
@@ -44,15 +45,17 @@ class Header extends Component {
               {
                 categories{
                     name
-                    products{
-                        prices{
-                        currency
-                        } 
-                    }   
                 }
               }
             `
-        }).then(res => { this.setState({data: res.data}) });   
+        }).then(res => { this.setState({data: res.data}) });  
+        this.props.client.query({
+            query:  gql `
+              {
+               currencies
+              }
+            `
+        }).then(res => { this.setState({fetchedCurrencies: res.data}) }); 
     } 
     
     calculateQuantity = () => {
@@ -70,8 +73,9 @@ class Header extends Component {
 
     render() {
         
-        const { currency, currencies, showCart, totalQuantity, showCurrencies, toggleCart} = this.props
+        const { currency, showCart, totalQuantity, showCurrencies, toggleCart, currencies} = this.props
         const data = this.state.data
+        const fetchedCurrencies = this.state.fetchedCurrencies.currencies
         
         return  (
             <div className="Header_Container" onClick={this.handleContainerClick}>
@@ -97,13 +101,13 @@ class Header extends Component {
                     </div>
                     { showCurrencies && 
                         <div className="currency_options boxShadow">
-                            {data.categories  && data.categories[0].products[0].prices.map((d,i) =>
+                            {fetchedCurrencies  && fetchedCurrencies.map((d,i) =>
                                 <p 
                                     key={i} 
                                     onClick={() => this.handleCurrencyClick(i)} 
                                     className="header_currency_options"
                                 >
-                                    {currencies[i]} {d.currency}
+                                    {currencies[i]} {d}
                                 </p>
                             )}
                         </div>

@@ -26,7 +26,13 @@
     font-size: 16px;
     margin: 10px 0;
 }
-
+.PDP_OutofStock{
+    font-size: 40px;
+    color: #8D8F9A;
+    position: absolute;
+    margin-left: 90px;
+    margin-top: 200px;
+}   
 @media only screen and (max-width: 600px) {
     .PDP_Container{
         display: flex;

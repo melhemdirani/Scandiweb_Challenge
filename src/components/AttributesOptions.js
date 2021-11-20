@@ -2,7 +2,7 @@ import React from 'react'
 import AttributesButton from './AttributesButton';
 import { PTagStyle } from './StyledComponents/StyledProductInfoComponents.styles';
 
-const AttributesOptions = ({attributes, handleClick, stateAttributes, location}) => {
+const AttributesOptions = ({attributes, handleClick, stateAttributes, location, showCart}) => {
     return (
         <>
             {attributes.map((attribute, i) =>
@@ -19,6 +19,7 @@ const AttributesOptions = ({attributes, handleClick, stateAttributes, location})
                                 attributeType= {attribute.type}
                                 displayValue={item.displayValue}
                                 location={location}
+                                showCart={showCart}
                         />
                         )}
                     </div>

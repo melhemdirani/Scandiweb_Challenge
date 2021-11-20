@@ -16,7 +16,6 @@
   width: 338px;
   height: 444px;
   padding: 20px;
-  cursor: pointer;
 }
 .cardContainer_attributes{
   display: flex;
@@ -42,6 +41,16 @@
   margin-top: 150px;
   margin-left: 90px
 }
-.marginTop_30{
+.ProductCard_addToCart{
+  width: 292px;
+  height: 52px;
+  background: #5ECE7B;
+  border: none;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 40px;
+  cursor: pointer;
   margin-top: 30px;
 }

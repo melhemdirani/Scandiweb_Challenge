@@ -20,7 +20,7 @@ class ProductCard extends Component {
     }
 
     mouseEnter = () => {
-        this.setState({isCardSelected: true});
+        !this.props.showCart && this.setState({isCardSelected: true});
         this.props.allowHideAttribute && this.props.disallowHideAttributes();
     }
     mouseLeave = () => {
@@ -29,7 +29,6 @@ class ProductCard extends Component {
 
     }
     HandleCartIconClick = () => {
-        this.props.showAttribute(this.props.id)
         if(!this.props.inStock) {
             return alert(`${this.props.brand} ${this.props.name} is out of stock`)
         }
@@ -46,6 +45,8 @@ class ProductCard extends Component {
             })
             
         }
+        this.props.showAttribute(this.props.id)
+
     }
     setAttribute = (type, att) => {
         
@@ -83,7 +84,7 @@ class ProductCard extends Component {
 
     render() {
         let category = this.props.categoryIndex === 0 ? 'clothes' : 'tech'
-        const {image, brand, price, currency, currencies, id, name, inStock, attributes, attributeShown} = this.props
+        const {image, brand, price, currency, currencies, id, name, inStock, attributes, attributeShown, showCart} = this.props
         const {isCardSelected } = this.state
         return (
             <div onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} >
@@ -104,13 +105,13 @@ class ProductCard extends Component {
                             />
                             <button 
                                 onClick={this.addToCart} 
-                                className="addToCart_Button marginTop_30"
+                                className="ProductCard_addToCart"
                             >
-                                Add to Cart
+                                ADD TO CART
                             </button>
                         </div>
                     :   <div className={ isCardSelected ? "cardContainer boxShadow" : "cardContainer" } >
-                            <Link to = {`/products/${category}/${id}`}>
+                            <Link to = {`/products/${category}/${id}`} className={showCart ? "disabled_link" : ""}>
                                 { !inStock && <p className="ProductCard_OutofStock"> OUT OF STOCK </p>}
                                 <img alt={name} src={image} className="productImage"/>
                                 <div>
@@ -148,9 +149,12 @@ const mapStateToProps =  ({
         attributesCount:{attributesCount}, 
         currencies:{currencies}, 
         attributeShown:{attributeShown},
-        allowHideAttribute: {allowHideAttribute}
+        allowHideAttribute: {allowHideAttribute},
+        showCart: {showCart}    
+
     })   => ({
     currency,
+    showCart,
     attributesCount, 
     currencies,
     attributeShown,

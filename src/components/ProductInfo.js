@@ -19,7 +19,7 @@ class ProductInfo extends Component {
         };
     }
     render() {
-        const {brand, name, amount, currencies, currency, attributes, location, stateAttributes} = this.props
+        const {brand, name, amount, currencies, currency, attributes, location, stateAttributes, showCart} = this.props
         return (
             <div className="ProductInfo_Container"  >
                 <PTagStyle location={location} subTitle={true} > 
@@ -37,6 +37,7 @@ class ProductInfo extends Component {
                     stateAttributes={stateAttributes} 
                     attributes={attributes} 
                     handleClick={this.handleClick}
+                    showCart={showCart}
                 />
                 { location === "productDescription" && 
                     <>
@@ -64,9 +65,10 @@ class ProductInfo extends Component {
 const mapDispatchToProps = (dispatch) => ({
     setAttributesCount: (count) => dispatch(setAttributesCount(count))
 });
-const mapStateToProps = ({currency: {currency}, currencies:{currencies}})  => ({
+const mapStateToProps = ({currency: {currency}, currencies:{currencies}, showCart:{showCart}})  => ({
     currency,
-    currencies
+    currencies,
+    showCart
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductInfo)

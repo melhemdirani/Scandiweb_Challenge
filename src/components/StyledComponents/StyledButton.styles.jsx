@@ -79,6 +79,7 @@ const getButtonDimensions = props => {
     } else return largeButtonDimensions
 }
 const getCursor = props => {
+    if( props.showCart) return ""
     if (props.location === "productDescription" || props.location === "Product_Listing") {
         return pointerCursor
     } else return ""

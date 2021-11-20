@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { StyledButton } from './StyledComponents/StyledButton.styles';
 
 class AttributesButton extends Component {
@@ -33,7 +32,7 @@ class AttributesButton extends Component {
     }
    
     render() {
-        const { attributeType, attributeName, handleClick, displayValue, location } = this.props
+        const { attributeType, attributeName, handleClick, displayValue, location, showCart } = this.props
    
 
         return (
@@ -43,6 +42,7 @@ class AttributesButton extends Component {
                 clicked={this.state.clicked}
                 location={location}
                 onClick={() => handleClick(attributeName, displayValue) }
+                showCart={showCart}
             >
                {displayValue} 
             </StyledButton>
@@ -52,4 +52,4 @@ class AttributesButton extends Component {
 
 
 
-export default AttributesButton
+export default  AttributesButton
